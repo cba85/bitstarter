@@ -3,14 +3,13 @@ var express = require('express');
 var app = express.createServer(express.logger());
 
 app.get('/', function(request, response) {
-    var buffer = new Buffer(1024);
-    var fs = require('fs');
-    var buffer = fs.readFile('./index.html', function (err, data) {
-        if (err) throw err;
-        console.log(data);
+    var fs = require('fs'), filename = 'index.html';
+    fs.readFile(filename, 'utf8', function(err, data) {
+	if (err) throw err;
+	console.log('OK: ' + filename);
+	console.log(data)
     });
-    var c = buffer.toString('utf-8');
-    response.send(c);
+    response.send(data);
 });
 
 var port = process.env.PORT || 5000;
